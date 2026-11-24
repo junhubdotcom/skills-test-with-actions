@@ -6,8 +6,8 @@ import os
 import pytest
 
 # Project Modules
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
-from calculations import area_of_circle, get_nth_fibonacci   # noqa: E402
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
+from calculations import area_of_circle, get_nth_fibonacci  # noqa: E402
 
 
 def test_area_of_circle_positive_radius():
@@ -58,13 +58,33 @@ def test_get_nth_fibonacci_one():
     assert result == 1
 
 
-# def test_get_nth_fibonacci_ten():
-#     """Test with n=10."""
-#     # Arrange
-#     n = 10
+def test_get_nth_fibonacci_ten():
+    """Test with n=10."""
+    # Arrange
+    n = 10
 
-#     # Act
-#     result = get_nth_fibonacci(n)
+    # Act
+    result = get_nth_fibonacci(n)
 
-#     # Assert
-#     assert result == 89
+    # Assert
+    assert result == 55
+
+
+def test_area_of_circle_negative_radius():
+    """A negative radius has the same area as its positive magnitude."""
+    assert area_of_circle(-2) == area_of_circle(2)
+
+
+@pytest.mark.parametrize(
+    ("n", "expected"),
+    [(2, 1), (5, 5), (15, 610)],
+)
+def test_get_nth_fibonacci_additional_values(n, expected):
+    """Test additional values across the iterative Fibonacci calculation."""
+    assert get_nth_fibonacci(n) == expected
+
+
+def test_get_nth_fibonacci_negative():
+    """Negative indices are rejected."""
+    with pytest.raises(ValueError):
+        get_nth_fibonacci(-1)
