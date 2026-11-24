@@ -68,3 +68,23 @@ def test_get_nth_fibonacci_ten():
 
     # Assert
     assert result == 55
+
+
+def test_area_of_circle_negative_radius():
+    """A negative radius has the same area as its positive magnitude."""
+    assert area_of_circle(-2) == area_of_circle(2)
+
+
+@pytest.mark.parametrize(
+    ("n", "expected"),
+    [(2, 1), (5, 5), (15, 610)],
+)
+def test_get_nth_fibonacci_additional_values(n, expected):
+    """Test additional values across the iterative Fibonacci calculation."""
+    assert get_nth_fibonacci(n) == expected
+
+
+def test_get_nth_fibonacci_negative():
+    """Negative indices are rejected."""
+    with pytest.raises(ValueError):
+        get_nth_fibonacci(-1)
